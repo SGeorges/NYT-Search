@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>New York Times Search</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Free Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- This link connects to my CSS file. -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+
+    <div id= "nty-header" class="jumbotron">
+        <h1 class="display-4 text-light font-weight-bold text-center"><i class="far fa-newspaper"></i> &nbsp New York Times Search</h1>
+    </div>
+
+    <div id="search-parameters" class="container-div">
+        <h2 id="search-parameters-header" class="container-header"><i class="fas fa-calendar-alt"></i> &nbsp Search Parameters </h2>
+
+        <form id="search-parameters-forms">
+            
+            <div class="form-group">
+            <label for="search-input">Search Term</label>
+            <input type="text" class="form-control" id="search-input">
+            </div>
+
+            <div class="form-group">
+            <label for="number-records">Number of Records to Retrieve:</label>
+            <select class="custom-select" id="number-records">
+                <option value= "1">1</option>
+                <option value= "2">2</option>
+                <option value= "3">3</option>
+                <option value= "4">4</option>
+                <option value= "5">5</option>
+                <option value= "6">6</option>
+                <option value= "7">7</option>
+                <option value= "8">8</option>
+                <option value= "9">9</option>
+
+            </select>
+            </div>
+
+            <div class="form-group">
+                <label for="start-year-input">Start Year (Optional)</label>
+                <input type="text" class="form-control" id="start-year-input">
+            </div>
+
+            <div class="form-group">
+                <label for="end-year-input">End Year (Optional)</label>
+                <input type="text" class="form-control" id="end-year-input">
+            </div>
+
+            <div class= "button-group">
+                <button id= "search-button" class="btn btn-light" type="submit"><i class="fas fa-search"></i> &nbsp Search</button>
+                <button id= "clear-button"  class="btn btn-light" type="submit"><i class="fas fa-trash-alt"></i> &nbsp Clear Results</button>
+                <button id= "favorites-button" class="btn btn-light" type="submit"><i class="fas fa-heart"></i> &nbsp Favorites</button>
+            </div>
+
+
+        </form>
+    </div>
+
+    <div id="top-articles" class="container-div">
+        <h2 id="search-parameters-header" class="container-header"><i class="fas fa-calendar-alt"></i> &nbsp Top Articles</h2>
+
+        <form id="articles-location">
+        </form>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        var article = {
+            title: "",
+            section: "",
+            snippet: "",
+            date: "",
+            link: "",
+        };
+
+        var favorites = [];
+
+// ==================== GETTING THE CURRENT DATE ====================
+// ==================== Source : https://stackoverflow.com/questions/8398897/how-to-get-current-date-in-jquery ====================
+
+        var d = new Date();
+
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+
+        var currentDate = d.getFullYear() + (month<10 ? '0' : '') + month + (day<10 ? '0' : '') + day;
+
+// ==================== ON SEARCH CILCK EVENT ====================
+    
+        $("#search-button").on("click", function(event){
+            event.preventDefault();
+
+            var yearStart = $("#start-year-input").val().trim();
+            var yearEnd   = $("#end-year-input").val().trim();
+
+            var search = $("#search-input").val().trim();
+
+            if ((yearStart != "") && (yearEnd != "")) {
+                var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=" + search + "&facet_field=day_of_week&facet=true&begin_date=" + yearStart + "0101&end_date=" + yearEnd + "1231&api-key=RWWZ8VTgJjkOMALXSPvImeafBajoUGem";
+            }
+            else if ((yearStart === "") && (yearEnd != "")) {
+                var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=" + search + "&facet_field=day_of_week&facet=true&begin_date=19000101&end_date=" + yearEnd + "1231&api-key=RWWZ8VTgJjkOMALXSPvImeafBajoUGem";
+            }
+            else if ((yearEnd === "") && (yearStart != "")) {
+                var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=" + search + "&facet_field=day_of_week&facet=true&begin_date=" + yearStart + "0101&end_date=" + currentDate + "&api-key=RWWZ8VTgJjkOMALXSPvImeafBajoUGem";
+            }
+            else{
+                var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + search + "&api-key=RWWZ8VTgJjkOMALXSPvImeafBajoUGem";
+            }
+
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+                }).then(function(response) {
+
+                    var result = response.response;
+                    console.log(result);
+                    console.log(i);
+
+                    for(var i=0; i < $("#number-records").val(); i++){
+                    
+                        var articleDiv = $("<div id= 'article-container'>");
+                        console.log(i);
+
+                        $(articleDiv).append("<button id= 'favorite-article-button' class='btn btn-light' onclick= 'favoriteArticle(" + i + ")' type='submit'><i class='fas fa-heart'></i></button>");
+                        $(articleDiv).append("<p id= 'article-title-" + i + "' class='article-title'>"+ result.docs[i].headline.main + "</p>");
+                        $(articleDiv).append("<p id= 'article-section-" + i + "' class = 'article-selection'>"+ result.docs[i].section_name + "</p>");
+                        $(articleDiv).append("<p id= 'article-snippet-" + i + "' class = 'article-snippet'>"+ result.docs[i].snippet + "</p>");
+                        $(articleDiv).append("<p id= 'article-date-" + i + "' class = 'article-date'>"+ result.docs[i].pub_date + "</p>");
+                        $(articleDiv).append("<a id= 'article-link-" + i + "' class = 'article-link' target= 'blank' href= '"+ result.docs[i].web_url + "'>" + result.docs[i].web_url + "</a>");
+                        
+                        $("#articles-location").append(articleDiv);
+                    }
+                });
+        });
+
+// ==================== ON CLEAR CILCK EVENT ====================
+
+        $("#clear-button").on("click", function(event){
+            event.preventDefault();
+
+            $("#articles-location").empty();
+        });
+
+// ==================== FAVORITE ARTICLE CILCK EVENT ====================
+
+        $("#favorites-button").on("click", function(event){
+            event.preventDefault();
+
+            $("#articles-location").empty();
+            for (var i = 0; i < favorites.length; i++) {
+
+                var articleDiv = $("<div id= 'article-container'>");
+
+//                $(articleDiv).append("<button id= 'favorite-article-button' class='btn btn-light' onclick= 'favoriteArticle(" + i + ")' type='submit'><i class='fas fa-heart'></i></button>");
+                $(articleDiv).append("<p id= 'article-title-" + i + "' class='article-title'>"+ favorites[i].title + "</p>");
+                $(articleDiv).append("<p id= 'article-section-" + i + "' class = 'article-selection'>"+ favorites[i].section + "</p>");
+                $(articleDiv).append("<p id= 'article-snippet-" + i + "' class = 'article-snippet'>"+ favorites[i].snippet + "</p>");
+                $(articleDiv).append("<p id= 'article-date-" + i + "' class = 'article-date'>"+ favorites[i].date + "</p>");
+                $(articleDiv).append("<a id= 'article-link-" + i + "' class = 'article-link' target= 'blank' href= '"+ favorites[i].link + "'>" + favorites[i].link + "</a>");
+                
+                $("#articles-location").append(articleDiv);
+
+            }
+        });
+
+// ==================== FAVORITE ARTICLE CILCK EVENT ====================
+
+        function favoriteArticle ( numFav ) {
+            event.preventDefault();
+            
+
+            var articleFav = Object.assign({}, article);
+                articleFav.title = $("#article-title-" + numFav).text();
+                articleFav.section = $("#article-section-" + numFav).text();
+                articleFav.snippet = $("#article-snippet-" + numFav).text();
+                articleFav.date = $("#article-date-" + numFav).text();
+                articleFav.link = $("#article-link-" + numFav).text();
+
+            favorites.push(articleFav);
+
+            console.log(favorites);
+        };        
+
+    </script>
+
+ 
+</body>
+</html>

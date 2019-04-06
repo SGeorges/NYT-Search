@@ -1,0 +1,69 @@
+body {
+    padding: 0px 50px;
+}
+
+#search-parameters-forms, #articles-location {
+    padding: 10px;
+
+    background-color: white;
+}
+
+.jumbotron {
+    margin: 0, 10px, 0, 10px;
+
+    background-color: navy;
+}
+
+.container-div {
+    margin: 10px 0;
+    padding: 0;
+
+    width: 100%;
+
+    background-color: navy;
+
+    border-color: navy;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.container-header {
+    padding: 10px;
+
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#article-container {
+    position: relative;
+
+    margin: 0px 0px 10px 0px;
+    padding: 10px;
+
+    border-color: lightgrey;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.article-title {
+    font-weight: bold;
+}
+
+.article-snippet, .article-section, .article-date {
+    font-size: 12px;
+}
+
+p {
+    margin: 0 0 5px 0;
+}
+
+#favorite-article-button { 
+    position: absolute;
+
+    margin: 5px;
+
+    right: 0;
+    top: 0;
+}
