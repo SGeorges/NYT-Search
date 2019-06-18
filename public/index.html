@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>New York Times Search</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Free Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- This link connects to my CSS file. -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <!-- This link connects to Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC:900&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id= "nty-header" class="jumbotron">
+        <h1 class="display-4 text-light font-weight-bold text-center"><i class="far fa-newspaper"></i> &nbsp New York Times Search</h1>
+    </div>
+
+    <div id="search-parameters" class="card mb-2">
+        <div class= "card-header container-header">
+            <h2 id="search-parameters-header" class="card-title container-header"><i class="fas fa-calendar-alt"></i> &nbsp Search Parameters </h2>
+        </div>
+
+        <form id="search-parameters-forms">
+            
+            <div class="form-group">
+                <label for="search-input">Search Term</label>
+                <input type="text" class="form-control" id="search-input">
+            </div>
+
+            <div class="form-group">
+                <label for="number-records">Number of Records to Retrieve:</label>
+                <select class="custom-select" id="number-records">
+                    <option value= "1">1</option>
+                    <option value= "2">2</option>
+                    <option value= "3">3</option>
+                    <option value= "4">4</option>
+                    <option value= "5">5</option>
+                    <option value= "6">6</option>
+                    <option value= "7">7</option>
+                    <option value= "8">8</option>
+                    <option value= "9">9</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="start-year-input">Start Year (Optional)</label>
+                <input type="text" class="form-control" id="start-year-input">
+            </div>
+
+            <div class="form-group">
+                <label for="end-year-input">End Year (Optional)</label>
+                <input type="text" class="form-control" id="end-year-input">
+            </div>
+
+            <div class= "button-group">
+                <button id= "search-button" class="btn btn-light" type="submit"><i class="fas fa-search"></i> &nbsp Search</button>
+                <button id= "clear-button"  class="btn btn-light" type="submit"><i class="fas fa-trash-alt"></i> &nbsp Clear Results</button>
+                <button id= "favorites-button" class="btn btn-light" type="submit"><i class="fas fa-bookmark"></i> &nbsp Favorites</button>
+            </div>
+
+
+        </form>
+    </div>
+
+    <div id="top-articles" class="card mt-2 mb-2">
+        <div class= "card-header container-header">
+            <h2 id="search-parameters-header" class="card-title container-header"><i class="fas fa-calendar-alt"></i> &nbsp Top Articles</h2>
+        </div>
+
+        <form id="articles-location">
+        </form>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./assets/javascript/app.js"></script>
+
+ 
+</body>
+</html>

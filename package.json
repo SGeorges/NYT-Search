@@ -1,0 +1,28 @@
+{
+  "name": "nyt-search",
+  "version": "1.0.0",
+  "description": "New York Times article search.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SGeorges/NYT-Search.git"
+  },
+  "keywords": [
+    "friend",
+    "finder"
+  ],
+  "author": "Stefano Georges",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SGeorges/NYT-Search/issues"
+  },
+  "homepage": "https://github.com/SGeorges/NYT-Search#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "express": "^4.16.4"
+  }
+}

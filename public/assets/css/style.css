@@ -11,6 +11,8 @@ body {
 .jumbotron {
     margin: 0, 10px, 0, 10px;
 
+    font-family: 'Playfair Display SC', serif;
+
     background-color: navy;
 }
 
@@ -29,11 +31,12 @@ body {
 }
 
 .container-header {
-    padding: 10px;
-
     color: white;
     font-size: 16px;
     font-weight: bold;
+    font-family: 'Playfair Display SC', serif;
+
+    background-color: navy;
 }
 
 #article-container {
@@ -59,10 +62,11 @@ p {
     margin: 0 0 5px 0;
 }
 
-#favorite-article-button { 
+.fav-btn { 
     position: absolute;
-
     margin: 5px;
+
+    color: navy;
 
     right: 0;
     top: 0;
